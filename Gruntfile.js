@@ -67,7 +67,7 @@ module.exports = function (grunt) {
         html2js: {
             options: {
                 base: 'src',
-                module: 'btorfs.multiselect.templates'
+                module: 'karun.multiselect.templates'
             },
             main: {
                 src: ['src/**/*.html'],

@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var multiselect = angular.module('btorfs.multiselect', ['btorfs.multiselect.templates']);
+  var multiselect = angular.module('karun.multiselect', ['karun.multiselect.templates']);
 
   multiselect.getRecursiveProperty = function (object, path) {
     return path.split('.').reduce(function (object, x) {
@@ -111,11 +111,19 @@
           var exists = index !== -1;
           if (exists) {
             $scope.selection.splice(index, 1);
-          } else if (!exists && ($scope.selectionLimit === 0 || $scope.selection.length < $scope.selectionLimit)) {
+          }
+          else if (!exists) {
             if (!angular.isDefined($scope.selection) || $scope.selection == null) {
               $scope.selection = [];
             }
-            $scope.selection.push(item);
+
+            if ($scope.selectionLimit === 1) {
+              $scope.selection = [];
+              $scope.selection.push(item);
+            }
+            else if ($scope.selectionLimit === 0 || $scope.selection.length < $scope.selectionLimit) {
+              $scope.selection.push(item);
+            }
           }
         };
 
@@ -168,7 +176,6 @@
             }
           }
         };
-
       }
     };
   });
