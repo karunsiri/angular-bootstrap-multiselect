@@ -24,7 +24,8 @@
         selectionLimit: '=?',
         showSelectAll: '=?',
         showUnselectAll: '=?',
-        showSearch: '=?'
+        showSearch: '=?',
+        disabled: '=ngDisabled'
       },
       require: 'ngModel',
       templateUrl: 'multiselect.html',
@@ -75,6 +76,13 @@
           }
         });
 
+        $element.on('$destroy', function() {
+          $document.off('click', closeHandler);
+          if (watcher) {
+            watcher(); // Clean watcher
+          }
+        });
+
         $scope.getButtonText = function () {
           if ($scope.selection && $scope.selection.length === 1) {
             return $scope.getDisplay($scope.selection[0]);
@@ -104,7 +112,7 @@
         };
 
         $scope.toggleItem = function (item) {
-          if (typeof $scope.selection === 'undefined') {
+          if ((typeof $scope.selection === 'undefined') || !$scope.selection) {
             $scope.selection = [];
           }
           var index = $scope.selection.indexOf(item);

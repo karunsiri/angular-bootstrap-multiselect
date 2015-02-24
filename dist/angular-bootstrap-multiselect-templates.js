@@ -3,8 +3,13 @@ angular.module('karun.multiselect.templates', ['multiselect.html']);
 angular.module("multiselect.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("multiselect.html",
     "<div class=\"btn-group\" style=\"width: 100%\">\n" +
-    "    <button type=\"button\" class=\"form-control btn btn-default btn-block dropdown-toggle\" ng-click=\"toggleDropdown()\">\n" +
-    "        {{getButtonText()}}&nbsp;<span class=\"caret\"></span></button>\n" +
+    "    <button type=\"button\"\n" +
+    "        class=\"form-control btn btn-default btn-block dropdown-toggle\"\n" +
+    "        ng-click=\"toggleDropdown()\"\n" +
+    "        ng-disabled=\"disabled\"\n" +
+    "        >\n" +
+    "        {{getButtonText()}}&nbsp;<span class=\"caret\"></span>\n" +
+    "    </button>\n" +
     "    <ul class=\"dropdown-menu dropdown-menu-form\"\n" +
     "        ng-style=\"{display: open ? 'block' : 'none'}\" style=\"width: 100%; overflow-x: auto\">\n" +
     "\n" +
@@ -38,7 +43,7 @@ angular.module("multiselect.html", []).run(["$templateCache", function($template
     "        </li>\n" +
     "\n" +
     "        <li ng-show=\"showSearch\" class=\"divider\"></li>\n" +
-    "        <li role=\"presentation\" ng-repeat=\"option in options | filter:search() | limitTo: searchLimit\"\n" +
+    "        <li role=\"presentation\" ng-repeat=\"option in ::options | filter:search() | limitTo: searchLimit\"\n" +
     "            ng-if=\"!isSelected(option)\">\n" +
     "            <a class=\"item-unselected\" href=\"\" ng-click=\"toggleItem(option); $event.stopPropagation()\">\n" +
     "                {{getDisplay(option)}}\n" +
@@ -51,5 +56,6 @@ angular.module("multiselect.html", []).run(["$templateCache", function($template
     "        </li>\n" +
     "\n" +
     "    </ul>\n" +
-    "</div>");
+    "</div>\n" +
+    "");
 }]);
